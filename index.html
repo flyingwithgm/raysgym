@@ -2,29 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ray’s Gym – Train & Book Online</title>
+  <title>Ziyalife Wellness Center – Book Your Session</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    :root{--red:#ff4f4f;--white:#ffffff;--light:#f5f5f5;--black:#111}
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-    body{background:var(--white);color:var(--black)}
-    header{height:60vh;background:url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1350&q=80') center/cover fixed;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--white)}
+    :root{--teal:#008080;--cream:#f7f7f7;--white:#fff;--dark:#333}
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
+    body{background:var(--cream);color:var(--dark)}
+    header{height:60vh;background:url('https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=1350&q=80') center/cover fixed;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--white)}
     header::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.55)}
     .hero{z-index:1}.hero h1{font-size:2.6rem;letter-spacing:1px}.hero p{font-size:1.1rem;margin-top:8px}
-    .btn-primary{background:var(--red);color:var(--white);padding:12px 28px;border:none;border-radius:50px;font-weight:700;cursor:pointer;margin-top:20px}
+    .btn-primary{background:var(--teal);color:var(--white);padding:12px 28px;border:none;border-radius:50px;font-weight:600;cursor:pointer;margin-top:20px}
     nav{background:var(--white);box-shadow:0 2px 8px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
-    .logo{font-weight:700;font-size:1.5rem;color:var(--red)}
-    .nav-links a{margin-left:20px;text-decoration:none;color:var(--black);font-weight:600}
+    .logo{font-weight:700;font-size:1.5rem;color:var(--teal)}
+    .nav-links a{margin-left:20px;text-decoration:none;color:var(--dark);font-weight:600}
     section{padding:60px 20px;max-width:1000px;margin:auto}
-    h2{color:var(--red);font-size:2rem;text-align:center;margin-bottom:30px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:25px}
-    .card{background:var(--light);border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);padding:20px;text-align:center;color:var(--black)}
+    h2{color:var(--teal);font-size:2rem;text-align:center;margin-bottom:30px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax:260px,1fr));gap:25px}
+    .card{background:var(--white);border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);padding:20px;text-align:center}
     .card img{width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:14px}
-    .card h3{font-size:1.2rem;margin-bottom:8px;color:var(--red)}
-    .price{font-weight:700;color:var(--red);margin-bottom:12px}
-    .btn-card{background:var(--red);color:var(--white);border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:700}
-    footer{background:var(--black);color:var(--white);text-align:center;padding:25px 20px;font-size:.85rem}
+    .card h3{font-size:1.2rem;margin-bottom:8px}.price{color:var(--teal);font-weight:700;margin-bottom:12px}
+    .btn-card{background:var(--teal);color:var(--white);border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:600}
+    footer{background:var(--teal);color:var(--white);text-align:center;padding:25px 20px;font-size:.85rem}
   </style>
 </head>
 
@@ -32,70 +31,68 @@
 
 <header>
   <div class="hero">
-    <h1>Ray’s Gym</h1>
-    <p>Train Hard • Book Easy • Achieve More</p>
-    <button class="btn-primary" onclick="scrollToSection('plans')">Book Session</button>
+    <h1>Ziyalife Wellness Center</h1>
+    <p>Wellness & Pain-Relief Services, Now Online</p>
+    <button class="btn-primary" onclick="scrollToSection('services')">Book Session</button>
   </div>
 </header>
 
 <nav>
-  <div class="logo">Ray’s Gym</div>
+  <div class="logo">Ziyalife</div>
   <div class="nav-links">
-    <a href="#plans">Plans</a>
-    <a href="#gallery">Gallery</a>
+    <a href="#services">Services</a>
+    <a href="#about">About</a>
     <a href="#contact">Contact</a>
   </div>
 </nav>
 
-<section id="plans">
-  <h2>Membership & Session Plans</h2>
+<section id="services">
+  <h2>Our Services</h2>
   <div class="grid">
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80" alt="Daily">
-      <h3>Daily Pass</h3>
-      <p>One-day access</p>
-      <div class="price">GHS 25</div>
-      <button class="btn-card" onclick="book('Daily Pass',25)">Book Now</button>
+      <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=600&q=80" alt="Massage">
+      <h3>Wellness Massage</h3>
+      <p>Deep-tissue & pain-relief</p>
+      <div class="price">GHS 150</div>
+      <button class="btn-card" onclick="book('Wellness Massage',150)">Book Now</button>
     </div>
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=600&q=80" alt="Weekly">
-      <h3>Weekly Pass</h3>
-      <p>7-day unlimited</p>
-      <div class="price">GHS 120</div>
-      <button class="btn-card" onclick="book('Weekly Pass',120)">Book Now</button>
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80" alt="Therapy">
+      <h3>Testosterone Replacement Therapy</h3>
+      <p>Personalized TRT plans</p>
+      <div class="price">From GHS 300</div>
+      <button class="btn-card" onclick="book('TRT Session',300)">Book Now</button>
     </div>
     <div class="card">
-      <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=600&q=80" alt="Monthly">
-      <h3>Monthly Pass</h3>
-      <p>30-day unlimited</p>
-      <div class="price">GHS 350</div>
-      <button class="btn-card" onclick="book('Monthly Pass',350)">Book Now</button>
+      <img src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?auto=format&fit=crop&w=600&q=80" alt="HRT">
+      <h3>Hormone Replacement Therapy</h3>
+      <p>Expert-guided HRT</p>
+      <div class="price">From GHS 250</div>
+      <button class="btn-card" onclick="book('HRT Session',250)">Book Now</button>
     </div>
   </div>
 </section>
 
-<section id="gallery">
-  <h2>Gallery</h2>
-  <div class="grid">
-    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80" alt="Equipment">
-    <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?auto=format&fit=crop&w=600&q=80" alt="Cardio">
-    <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=600&q=80" alt="Weights">
-  </div>
+<section id="about">
+  <h2>About Us</h2>
+  <p style="max-width:700px;margin:auto;text-align:center;font-size:1rem;line-height:1.6">
+    Located on Offshore St, Takoradi, Ziyalife offers advanced wellness, pain-relief and hormone therapies with a patient-first approach [^52^].
+  </p>
 </section>
 
 <section id="contact">
   <h2>Contact & Location</h2>
   <p style="text-align:center;font-size:1.1rem;margin-bottom:20px">
-    📍 Beach Road, Takoradi<br>
-    📞 024 093 4709
+    📍 Offshore St, Takoradi<br>
+    📞 020 638 0868
   </p>
   <p style="text-align:center">
-    <button class="btn-card" onclick="window.open('https://wa.me/233240934709','_blank')" style="padding:14px 28px;font-size:1rem">Message on WhatsApp</button>
+    <button class="btn-card" onclick="window.open('https://wa.me/233206380868','_blank')" style="padding:14px 28px;font-size:1rem">Message on WhatsApp</button>
   </p>
 </section>
 
 <footer>
-  © 2024 Ray’s Gym – Website by George Nuyekpe
+  © 2024 Ziyalife Wellness Center – Website by George Nuyekpe
 </footer>
 
 <script>
@@ -103,8 +100,8 @@
     document.getElementById(id).scrollIntoView({behavior:'smooth'});
   }
   function book(service,price){
-    const msg = `Hi Ray’s Gym, I'd like to book: ${service} (GHS ${price}).\n\nMy name & preferred time:`;
-    window.open(`https://wa.me/233240934709?text=${encodeURIComponent(msg)}`, '_blank');
+    const msg = `Hi Ziyalife Wellness Center, I'd like to book: ${service} (GHS ${price}).\n\nMy name & preferred date/time:`;
+    window.open(`https://wa.me/233206380868?text=${encodeURIComponent(msg)}`, '_blank');
   }
 </script>
 </body>
