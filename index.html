@@ -1,108 +1,617 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Ziyalife Wellness Center – Book Your Session</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-  <style>
-    :root{--teal:#008080;--cream:#f7f7f7;--white:#fff;--dark:#333}
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif}
-    body{background:var(--cream);color:var(--dark)}
-    header{height:60vh;background:url('https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=1350&q=80') center/cover fixed;position:relative;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--white)}
-    header::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.55)}
-    .hero{z-index:1}.hero h1{font-size:2.6rem;letter-spacing:1px}.hero p{font-size:1.1rem;margin-top:8px}
-    .btn-primary{background:var(--teal);color:var(--white);padding:12px 28px;border:none;border-radius:50px;font-weight:600;cursor:pointer;margin-top:20px}
-    nav{background:var(--white);box-shadow:0 2px 8px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
-    .logo{font-weight:700;font-size:1.5rem;color:var(--teal)}
-    .nav-links a{margin-left:20px;text-decoration:none;color:var(--dark);font-weight:600}
-    section{padding:60px 20px;max-width:1000px;margin:auto}
-    h2{color:var(--teal);font-size:2rem;text-align:center;margin-bottom:30px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax:260px,1fr));gap:25px}
-    .card{background:var(--white);border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);padding:20px;text-align:center}
-    .card img{width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:14px}
-    .card h3{font-size:1.2rem;margin-bottom:8px}.price{color:var(--teal);font-weight:700;margin-bottom:12px}
-    .btn-card{background:var(--teal);color:var(--white);border:none;padding:10px 20px;border-radius:6px;cursor:pointer;font-weight:600}
-    footer{background:var(--teal);color:var(--white);text-align:center;padding:25px 20px;font-size:.85rem}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GM73 Technolutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9',
+                        secondary: '#8b5cf6',
+                        dark: '#0f172a',
+                        darker: '#020617'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+        .tech-gradient {
+            background: linear-gradient(135deg, #0ea5e9, #8b5cf6, #0ea5e9);
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        }
+        .neon-text {
+            text-shadow: 0 0 5px #0ea5e9, 0 0 10px #0ea5e9;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-
 <body>
+    <!-- Navigation -->
+    <nav class="bg-darker border-b border-gray-800 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="tech-gradient w-8 h-8 rounded-lg"></div>
+                        <span class="ml-2 text-xl font-bold neon-text">GM73</span>
+                    </div>
+                    <div class="hidden md:ml-10 md:flex md:space-x-8">
+                        <a href="#home" class="text-primary hover:text-white px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">About</a>
+                        <a href="#projects" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Projects</a>
+                        <a href="#blog" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Blog</a>
+                        <a href="#contact" class="text-gray-300 hover:text-white px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="flex items-center">
+                    <div id="auth-buttons" class="flex space-x-3">
+                        <button id="login-btn" class="text-gray-300 hover:text-white text-sm font-medium">Login</button>
+                        <button id="signup-btn" class="bg-primary hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">Sign Up</button>
+                    </div>
+                    <div id="user-menu" class="hidden flex items-center space-x-3">
+                        <span id="user-email" class="text-sm text-gray-300"></span>
+                        <button id="logout-btn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-<header>
-  <div class="hero">
-    <h1>Ziyalife Wellness Center</h1>
-    <p>Wellness & Pain-Relief Services, Now Online</p>
-    <button class="btn-primary" onclick="scrollToSection('services')">Book Session</button>
-  </div>
-</header>
+    <!-- Hero Section -->
+    <section id="home" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 neon-text">
+                GM73 Technolutions Inc
+            </h1>
+            <p class="text-xl text-gray-300 mb-10 max-w-3xl mx-auto">
+                Pioneering AI-powered solutions for real-world challenges. Transforming ideas into innovative technologies.
+            </p>
+            
+            <!-- Newsletter Form -->
+            <div class="max-w-md mx-auto mb-12">
+                <div class="bg-dark rounded-lg p-6 shadow-xl">
+                    <h3 class="text-lg font-semibold mb-4">Join Our Newsletter</h3>
+                    <form id="newsletter-form" class="space-y-4">
+                        <input type="text" id="newsletter-name" placeholder="Your Name" class="w-full px-4 py-2 bg-darker border border-gray-700 rounded-lg focus:outline-none focus:border-primary" required>
+                        <input type="email" id="newsletter-email" placeholder="Your Email" class="w-full px-4 py-2 bg-darker border border-gray-700 rounded-lg focus:outline-none focus:border-primary" required>
+                        <button type="submit" class="w-full bg-primary hover:bg-blue-600 text-white py-2 rounded-lg font-medium transition-colors">
+                            Subscribe
+                        </button>
+                    </form>
+                    <p id="newsletter-message" class="mt-3 text-sm text-green-400 hidden"></p>
+                </div>
+            </div>
 
-<nav>
-  <div class="logo">Ziyalife</div>
-  <div class="nav-links">
-    <a href="#services">Services</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </div>
-</nav>
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#contact" class="bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                    Contact Us
+                </a>
+                <a href="#blog" class="bg-secondary hover:bg-purple-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                    View Blog
+                </a>
+                <a href="#projects" class="bg-dark hover:bg-gray-800 text-white px-8 py-3 rounded-lg font-medium border border-gray-700 transition-colors">
+                    Our Projects
+                </a>
+            </div>
+        </div>
+    </section>
 
-<section id="services">
-  <h2>Our Services</h2>
-  <div class="grid">
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1545389336-cf090694435e?auto=format&fit=crop&w=600&q=80" alt="Massage">
-      <h3>Wellness Massage</h3>
-      <p>Deep-tissue & pain-relief</p>
-      <div class="price">GHS 150</div>
-      <button class="btn-card" onclick="book('Wellness Massage',150)">Book Now</button>
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-darker">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">About GM73</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Innovating at the intersection of artificial intelligence and real-world solutions</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-semibold mb-6">Our Mission</h3>
+                    <p class="text-gray-300 mb-6">
+                        At GM73 Technolutions, we're committed to developing cutting-edge AI technologies that solve practical problems and create meaningful impact across industries.
+                    </p>
+                    <h3 class="text-2xl font-semibold mb-6">Our Vision</h3>
+                    <p class="text-gray-300">
+                        To become a leading force in AI innovation, bridging the gap between advanced technology and everyday applications that improve lives and transform businesses.
+                    </p>
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-dark p-6 rounded-lg card-hover">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">AI Innovation</h4>
+                        <p class="text-gray-400 text-sm">Developing intelligent systems that learn and adapt</p>
+                    </div>
+                    <div class="bg-dark p-6 rounded-lg card-hover">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Real Solutions</h4>
+                        <p class="text-gray-400 text-sm">Creating practical applications for complex problems</p>
+                    </div>
+                    <div class="bg-dark p-6 rounded-lg card-hover">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Future Tech</h4>
+                        <p class="text-gray-400 text-sm">Pushing boundaries with emerging technologies</p>
+                    </div>
+                    <div class="bg-dark p-6 rounded-lg card-hover">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4 class="font-semibold mb-2">Human-Centric</h4>
+                        <p class="text-gray-400 text-sm">Technology designed to serve humanity</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Projects</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Innovative solutions transforming industries</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-dark rounded-lg overflow-hidden card-hover">
+                    <div class="h-48 bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+                        <div class="text-4xl text-white">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">FarmDoc GH</h3>
+                        <p class="text-gray-400 mb-4">AI-powered agricultural diagnostics for Ghanaian farmers</p>
+                        <a href="#" class="text-primary hover:text-blue-400 font-medium">Learn More →</a>
+                    </div>
+                </div>
+                
+                <div class="bg-dark rounded-lg overflow-hidden card-hover">
+                    <div class="h-48 bg-gradient-to-r from-green-500 to-teal-600 flex items-center justify-center">
+                        <div class="text-4xl text-white">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">AutoPortfolio</h3>
+                        <p class="text-gray-400 mb-4">Automated investment portfolio management system</p>
+                        <a href="#" class="text-primary hover:text-blue-400 font-medium">Learn More →</a>
+                    </div>
+                </div>
+                
+                <div class="bg-dark rounded-lg overflow-hidden card-hover">
+                    <div class="h-48 bg-gradient-to-r from-purple-500 to-pink-600 flex items-center justify-center">
+                        <div class="text-4xl text-white">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">GM73 AssistPro</h3>
+                        <p class="text-gray-400 mb-4">Enterprise AI assistant for productivity enhancement</p>
+                        <a href="#" class="text-primary hover:text-blue-400 font-medium">Learn More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="py-20 px-4 sm:px-6 lg:px-8 bg-darker">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Latest Blog Posts</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Insights, updates, and thoughts from our team</p>
+            </div>
+            
+            <div id="blog-container" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog posts will be loaded here -->
+                <div class="text-center text-gray-500">Loading blog posts...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In Touch</h2>
+                <p class="text-gray-400 max-w-2xl mx-auto">Have questions or want to collaborate? Reach out to us!</p>
+            </div>
+            
+            <div class="bg-dark rounded-lg p-8 shadow-xl">
+                <form action="https://formspree.io/f/xgvylpgl" method="POST" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium mb-2">Name</label>
+                            <input type="text" id="name" name="name" required class="w-full px-4 py-2 bg-darker border border-gray-700 rounded-lg focus:outline-none focus:border-primary">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" id="email" name="email" required class="w-full px-4 py-2 bg-darker border border-gray-700 rounded-lg focus:outline-none focus:border-primary">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium mb-2">Message</label>
+                        <textarea id="message" name="message" rows="5" required class="w-full px-4 py-2 bg-darker border border-gray-700 rounded-lg focus:outline-none focus:border-primary"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-primary hover:bg-blue-600 text-white py-3 rounded-lg font-medium transition-colors">
+                        Send Message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker border-t border-gray-800 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="tech-gradient w-8 h-8 rounded-lg"></div>
+                        <span class="ml-2 text-xl font-bold neon-text">GM73</span>
+                    </div>
+                    <p class="text-gray-400 mb-4">Pioneering AI solutions for real-world challenges.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white">About</a></li>
+                        <li><a href="#projects" class="text-gray-400 hover:text-white">Projects</a></li>
+                        <li><a href="#blog" class="text-gray-400 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">API Reference</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Tutorials</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Support</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+                    <form id="footer-newsletter-form" class="space-y-3">
+                        <input type="text" placeholder="Your Name" class="w-full px-3 py-2 bg-dark border border-gray-700 rounded-lg focus:outline-none focus:border-primary text-sm">
+                        <input type="email" placeholder="Your Email" class="w-full px-3 py-2 bg-dark border border-gray-700 rounded-lg focus:outline-none focus:border-primary text-sm" required>
+                        <button type="submit" class="w-full bg-primary hover:bg-blue-600 text-white py-2 rounded-lg text-sm font-medium transition-colors">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-500">
+                <p>&copy; 2023 GM73 Technolutions Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-dark rounded-lg p-8 max-w-md w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="auth-title" class="text-2xl font-bold">Sign Up</h3>
+                <button id="close-modal" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <form id="auth-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Email</label>
+                    <input type="email" id="auth-email" required class="w-full px-4 py-2 bg-darker border border-gray-700 rounded-lg focus:outline-none focus:border-primary">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Password</label>
+                    <input type="password" id="auth-password" required class="w-full px-4 py-2 bg-darker border border-gray-700 rounded-lg focus:outline-none focus:border-primary">
+                </div>
+                <div id="confirm-password-field" class="hidden">
+                    <label class="block text-sm font-medium mb-2">Confirm Password</label>
+                    <input type="password" id="auth-confirm-password" class="w-full px-4 py-2 bg-darker border border-gray-700 rounded-lg focus:outline-none focus:border-primary">
+                </div>
+                <button type="submit" id="auth-submit" class="w-full bg-primary hover:bg-blue-600 text-white py-2 rounded-lg font-medium transition-colors">
+                    Sign Up
+                </button>
+            </form>
+            
+            <div class="mt-6">
+                <button id="google-login" class="w-full bg-white text-gray-900 py-2 rounded-lg font-medium flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors">
+                    <i class="fab fa-google"></i>
+                    Continue with Google
+                </button>
+            </div>
+            
+            <div class="mt-6 text-center">
+                <p id="auth-switch-text" class="text-gray-400">
+                    Already have an account? 
+                    <button id="auth-switch" class="text-primary hover:text-blue-400 font-medium">Login</button>
+                </p>
+            </div>
+        </div>
     </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=600&q=80" alt="Therapy">
-      <h3>Testosterone Replacement Therapy</h3>
-      <p>Personalized TRT plans</p>
-      <div class="price">From GHS 300</div>
-      <button class="btn-card" onclick="book('TRT Session',300)">Book Now</button>
-    </div>
-    <div class="card">
-      <img src="https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?auto=format&fit=crop&w=600&q=80" alt="HRT">
-      <h3>Hormone Replacement Therapy</h3>
-      <p>Expert-guided HRT</p>
-      <div class="price">From GHS 250</div>
-      <button class="btn-card" onclick="book('HRT Session',250)">Book Now</button>
-    </div>
-  </div>
-</section>
 
-<section id="about">
-  <h2>About Us</h2>
-  <p style="max-width:700px;margin:auto;text-align:center;font-size:1rem;line-height:1.6">
-    Located on Offshore St, Takoradi, Ziyalife offers advanced wellness, pain-relief and hormone therapies with a patient-first approach [^52^].
-  </p>
-</section>
+    <script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://sjqkxvgazocxlcjquygn.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNqcWt4dmdhem9jeGxjanF1eWduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUyNzgxMjIsImV4cCI6MjA3MDg1NDEyMn0.EIlprEBunquFVEyAYmOcvmzR38YGDFoLaNziHTfkGhE';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-<section id="contact">
-  <h2>Contact & Location</h2>
-  <p style="text-align:center;font-size:1.1rem;margin-bottom:20px">
-    📍 Offshore St, Takoradi<br>
-    📞 020 638 0868
-  </p>
-  <p style="text-align:center">
-    <button class="btn-card" onclick="window.open('https://wa.me/233206380868','_blank')" style="padding:14px 28px;font-size:1rem">Message on WhatsApp</button>
-  </p>
-</section>
+        // DOM Elements
+        const authModal = document.getElementById('auth-modal');
+        const loginBtn = document.getElementById('login-btn');
+        const signupBtn = document.getElementById('signup-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const closeModal = document.getElementById('close-modal');
+        const authForm = document.getElementById('auth-form');
+        const authTitle = document.getElementById('auth-title');
+        const authSubmit = document.getElementById('auth-submit');
+        const authSwitch = document.getElementById('auth-switch');
+        const authSwitchText = document.getElementById('auth-switch-text');
+        const confirmPasswordField = document.getElementById('confirm-password-field');
+        const authEmail = document.getElementById('auth-email');
+        const authPassword = document.getElementById('auth-password');
+        const authConfirmPassword = document.getElementById('auth-confirm-password');
+        const userMenu = document.getElementById('user-menu');
+        const userEmail = document.getElementById('user-email');
+        const authButtons = document.getElementById('auth-buttons');
+        const googleLogin = document.getElementById('google-login');
 
-<footer>
-  © 2024 Ziyalife Wellness Center – Website by George Nuyekpe
-</footer>
+        // Newsletter Forms
+        const newsletterForm = document.getElementById('newsletter-form');
+        const footerNewsletterForm = document.getElementById('footer-newsletter-form');
+        const newsletterMessage = document.getElementById('newsletter-message');
 
-<script>
-  function scrollToSection(id){
-    document.getElementById(id).scrollIntoView({behavior:'smooth'});
-  }
-  function book(service,price){
-    const msg = `Hi Ziyalife Wellness Center, I'd like to book: ${service} (GHS ${price}).\n\nMy name & preferred date/time:`;
-    window.open(`https://wa.me/233206380868?text=${encodeURIComponent(msg)}`, '_blank');
-  }
-</script>
+        // State
+        let isLoginMode = true;
+
+        // Check user session on load
+        window.addEventListener('DOMContentLoaded', async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
+                showUserMenu(session.user.email);
+            }
+            loadBlogPosts();
+        });
+
+        // Auth Event Listener
+        supabase.auth.onAuthStateChange((_event, session) => {
+            if (session) {
+                showUserMenu(session.user.email);
+            } else {
+                hideUserMenu();
+            }
+        });
+
+        // Auth Functions
+        function showAuthModal(mode = 'login') {
+            isLoginMode = mode === 'login';
+            authTitle.textContent = isLoginMode ? 'Login' : 'Sign Up';
+            authSubmit.textContent = isLoginMode ? 'Login' : 'Sign Up';
+            authSwitchText.innerHTML = isLoginMode 
+                ? 'Don\'t have an account? <button id="auth-switch" class="text-primary hover:text-blue-400 font-medium">Sign Up</button>'
+                : 'Already have an account? <button id="auth-switch" class="text-primary hover:text-blue-400 font-medium">Login</button>';
+            
+            confirmPasswordField.classList.toggle('hidden', isLoginMode);
+            authModal.classList.remove('hidden');
+            
+            // Reattach event listener for dynamic switch button
+            setTimeout(() => {
+                const switchBtn = document.getElementById('auth-switch');
+                if (switchBtn) {
+                    switchBtn.addEventListener('click', () => {
+                        showAuthModal(isLoginMode ? 'signup' : 'login');
+                    });
+                }
+            }, 0);
+        }
+
+        function hideAuthModal() {
+            authModal.classList.add('hidden');
+            authForm.reset();
+        }
+
+        function showUserMenu(email) {
+            userEmail.textContent = email;
+            authButtons.classList.add('hidden');
+            userMenu.classList.remove('hidden');
+        }
+
+        function hideUserMenu() {
+            authButtons.classList.remove('hidden');
+            userMenu.classList.add('hidden');
+        }
+
+        // Event Listeners
+        loginBtn.addEventListener('click', () => showAuthModal('login'));
+        signupBtn.addEventListener('click', () => showAuthModal('signup'));
+        closeModal.addEventListener('click', hideAuthModal);
+        logoutBtn.addEventListener('click', async () => {
+            await supabase.auth.signOut();
+            hideUserMenu();
+        });
+
+        googleLogin.addEventListener('click', async () => {
+            const { error } = await supabase.auth.signInWithOAuth({
+                provider: 'google',
+            });
+            if (error) console.error('Google login error:', error);
+        });
+
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = authEmail.value;
+            const password = authPassword.value;
+            
+            if (!isLoginMode) {
+                if (password !== authConfirmPassword.value) {
+                    alert('Passwords do not match');
+                    return;
+                }
+            }
+            
+            try {
+                let result;
+                if (isLoginMode) {
+                    result = await supabase.auth.signInWithPassword({ email, password });
+                } else {
+                    result = await supabase.auth.signUp({ email, password });
+                }
+                
+                if (result.error) throw result.error;
+                
+                hideAuthModal();
+                if (isLoginMode) {
+                    showUserMenu(email);
+                } else {
+                    alert('Check your email to confirm your account!');
+                }
+            } catch (error) {
+                alert(error.message);
+            }
+        });
+
+        // Newsletter Functions
+        async function subscribeToNewsletter(name, email, formElement) {
+            try {
+                const { data, error } = await supabase
+                    .from('newsletter')
+                    .insert([{ name, email }]);
+                
+                if (error) throw error;
+                
+                const messageElement = formElement.id === 'newsletter-form' ? newsletterMessage : 
+                                     formElement.querySelector('p') || document.createElement('p');
+                messageElement.textContent = 'Thank you for subscribing!';
+                messageElement.className = 'mt-3 text-sm text-green-400';
+                if (formElement.id === 'footer-newsletter-form') {
+                    formElement.appendChild(messageElement);
+                }
+                formElement.reset();
+                
+                setTimeout(() => {
+                    messageElement.classList.add('hidden');
+                }, 3000);
+            } catch (error) {
+                alert('Error subscribing: ' + error.message);
+            }
+        }
+
+        newsletterForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('newsletter-name').value;
+            const email = document.getElementById('newsletter-email').value;
+            await subscribeToNewsletter(name, email, newsletterForm);
+        });
+
+        footerNewsletterForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = footerNewsletterForm.querySelector('input[type="text"]').value;
+            const email = footerNewsletterForm.querySelector('input[type="email"]').value;
+            await subscribeToNewsletter(name, email, footerNewsletterForm);
+        });
+
+        // Blog Functions
+        async function loadBlogPosts() {
+            try {
+                const { data, error } = await supabase
+                    .from('blog_posts')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(6);
+                
+                if (error) throw error;
+                
+                const blogContainer = document.getElementById('blog-container');
+                if (data.length === 0) {
+                    blogContainer.innerHTML = '<div class="text-center text-gray-500 col-span-3">No blog posts yet. Check back soon!</div>';
+                    return;
+                }
+                
+                blogContainer.innerHTML = data.map(post => `
+                    <div class="bg-dark rounded-lg overflow-hidden card-hover fade-in">
+                        <div class="h-48 bg-gradient-to-r from-primary to-secondary flex items-center justify-center">
+                            <div class="text-4xl text-white">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">${post.title}</h3>
+                            <p class="text-gray-400 mb-4">${post.content.substring(0, 100)}...</p>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-500">${new Date(post.created_at).toLocaleDateString()}</span>
+                                <a href="#" class="text-primary hover:text-blue-400 font-medium text-sm">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading blog posts:', error);
+                document.getElementById('blog-container').innerHTML = '<div class="text-center text-red-400 col-span-3">Error loading blog posts</div>';
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
